@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProResume Builder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide-react@latest/dist/lucide.umd.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100">
+
+    <header class="bg-white shadow-md">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+            <div class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-gray-800"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <span class="font-bold text-xl ml-2 text-gray-800">CV Builder</span>
+            </div>
+            <button onclick="handlePrint()" class="flex items-center bg-gray-800 text-white py-2 px-4 rounded-lg font-medium hover:bg-gray-900 transition duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 mr-2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+                Download PDF
+            </button>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="flex flex-col md:flex-row gap-6 lg:gap-8">
+
+            <div id="form-column" class="w-full md:w-1/2 lg:w-3/5 space-y-6">
+                
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">Personal Details</h2>
+                    
+                    <div class="mb-4">
+                        <label for="photo" class="block text-sm font-medium text-gray-700 mb-1">Profile Photo</label>
+                        <input id="photo" onchange="updatePhoto()" type="file" accept="image/*" class="p-2 border rounded-lg w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100">
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <input id="name" oninput="updatePreview('name', 'preview-name')" type="text" placeholder="e.g., Jane Doe" class="p-2 border rounded-lg w-full">
+                        <input id="title" oninput="updatePreview('title', 'preview-title')" type="text" placeholder="e.g., Senior Web Developer" class="p-2 border rounded-lg w-full">
+                        <input id="phone" oninput="updatePreview('phone', 'preview-phone-text')" type="tel" placeholder="e.g., +1 (555) 123-4567" class="p-2 border rounded-lg w-full">
+                        <input id="email" oninput="updatePreview('email', 'preview-email-text')" type="email" placeholder="e.g., jane.doe@example.com" class="p-2 border rounded-lg w-full">
+                        <input id="location" oninput="updatePreview('location', 'preview-location-text')" type="text" placeholder="e.g., San Francisco, CA" class="p-2 border rounded-lg w-full sm:col-span-2">
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex justify-between items-center mb-4 border-b pb-2">
+                        <h2 class="text-xl font-semibold text-gray-800">Education</h2>
+                        <button onclick="addEducation()" class="bg-gray-700 text-white py-1 px-3 rounded-lg text-sm font-medium hover:bg-gray-800 transition duration-300">+ Add</button>
+                    </div>
+                    <div id="education-forms" class="space-y-4">
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex justify-between items-center mb-4 border-b pb-2">
+                        <h2 class="text-xl font-semibold text-gray-800">Work Experience</h2>
+                        <button onclick="addExperience()" class="bg-gray-700 text-white py-1 px-3 rounded-lg text-sm font-medium hover:bg-gray-800 transition duration-300">+ Add</button>
+                    </div>
+                    <div id="experience-forms" class="space-y-4">
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex justify-between items-center mb-4 border-b pb-2">
+                        <h2 class="text-xl font-semibold text-gray-800">Skills</h2>
+                        <button onclick="addSkill()" class="bg-gray-700 text-white py-1 px-3 rounded-lg text-sm font-medium hover:bg-gray-800 transition duration-300">+ Add</button>
+                    </div>
+                    <div id="skill-forms" class="space-y-4">
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex justify-between items-center mb-4 border-b pb-2">
+                        <h2 class="text-xl font-semibold text-gray-800">Expertise</h2>
+                        <button onclick="addExpertise()" class="bg-gray-700 text-white py-1 px-3 rounded-lg text-sm font-medium hover:bg-gray-800 transition duration-300">+ Add</button>
+                    </div>
+                    <div id="expertise-forms" class="space-y-4">
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex justify-between items-center mb-4 border-b pb-2">
+                        <h2 class="text-xl font-semibold text-gray-800">Languages</h2>
+                        <button onclick="addLanguage()" class="bg-gray-700 text-white py-1 px-3 rounded-lg text-sm font-medium hover:bg-gray-800 transition duration-300">+ Add</button>
+                    </div>
+                    <div id="language-forms" class="space-y-4">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="w-full md:w-1/2 lg:w-2/5" id="print-wrapper">
+                <div id="resume-preview" class="bg-white shadow-lg w-full max-w-2xl mx-auto h-full min-h-[1123px] aspect-[8.5/11] flex overflow-hidden rounded-lg">
+                    
+                    <div id="resume-left-col" class="w-1/3 bg-gray-800 text-white p-6 space-y-8">
+                        <div>
+                            <img id="preview-image" src="https://placehold.co/128x128/e2e8f0/cbd5e1?text=Photo" alt="Profile Picture" class="rounded-full h-32 w-32 object-cover mx-auto border-4 border-gray-500">
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold uppercase tracking-wider border-b border-gray-500 pb-1 mb-3">Contact</h3>
+                            <div class="space-y-3 text-xs">
+                                <p id="preview-phone" class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 mt-0.5 flex-shrink-0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                                    <span id="preview-phone-text">Phone</span>
+                                </p>
+                                <p id="preview-email" class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 mt-0.5 flex-shrink-0"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                    <span id="preview-email-text" class="break-all">Email</span>
+                                </p>
+                                <p id="preview-location" class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 mt-0.5 flex-shrink-0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                    <span id="preview-location-text">Address</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold uppercase tracking-wider border-b border-gray-500 pb-1 mb-3">Skills</h3>
+                            <div id="preview-skills" class="space-y-3 text-xs">
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold uppercase tracking-wider border-b border-gray-500 pb-1 mb-3">Expertise</h3>
+                            <ul id="preview-expertise" class="list-disc list-inside space-y-1 text-xs">
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-lg font-semibold uppercase tracking-wider border-b border-gray-500 pb-1 mb-3">Language</h3>
+                            <ul id="preview-language" class="list-disc list-inside space-y-1 text-sm">
+                                <li>Language Item</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="w-2/3 bg-white p-8 space-y-8" id="resume-right-col">
+                        <header class="text-left mb-6">
+                            <h1 id="preview-name" class="text-5xl font-extrabold text-gray-900 uppercase">Your Name</h1>
+                            <h2 id="preview-title" class="text-2xl font-medium text-gray-700 mt-1">Your Title</h2>
+                        </header>
+
+                        <main class="space-y-6">
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800 uppercase tracking-wider border-b-2 border-gray-300 pb-2 mb-4">Education</h3>
+                                <div id="preview-education" class="space-y-4">
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800 uppercase tracking-wider border-b-2 border-gray-300 pb-2 mb-4">Work Experience</h3>
+                                <div id="preview-experience" class="space-y-4">
+                                </div>
+                            </div>
+                        </main>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
